@@ -1,0 +1,23 @@
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+const userSchema = new Schema({
+  name: {
+    type: String,  // 資料型別是字串
+    required: true  // 這是個必填欄位
+  },
+  email: {
+    type: String,
+    require: true
+  },
+  password: {
+    type: String,
+    require: true
+  },
+  createdAt: {
+    type: Date,
+    require: Date.now
+  }
+})
+
+module.exports = mongoose.model('User', userSchema)
