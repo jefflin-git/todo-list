@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 // 引用路由器
 const routes = require('./routes/index.js')
+const session = require('express-session')
 // 如果在 Heroku 環境則使用 process.env.PORT
 // 否則為本地環境，使用 3000 
 const PORT = process.env.PORT || 3000
@@ -19,6 +20,12 @@ const PORT = process.env.PORT || 3000
 //設定樣板引擎
 app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
+
+app.use(session({
+    secret: 'ThisIsMySecret',
+    resave: false,
+    saveUninitialized: true
+}))
 
 // 用 app.use 規定每一筆請求都需要透過 body-parser 進行前置處理
 app.use(bodyParser.urlencoded({ extended: true }))
