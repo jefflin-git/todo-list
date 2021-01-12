@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 // 否則為本地環境，使用 mongodb://localhost/todo-list
 const MONGOOSE_URI = process.env.MONGODB_URI || 'mongodb://localhost/todo-list'
 // 設定連線到 mongoDB
-mongoose.connect(MONGOOSE_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGOOSE_URI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 // 取得資料庫連線狀態
 const db = mongoose.connection
 // 連線異常
