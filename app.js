@@ -14,6 +14,8 @@ const routes = require('./routes/index.js')
 const session = require('express-session')
 // 載入設定檔，要寫在 express-session 以後
 const usePassport = require('./config/passport')
+const flash = require('connect-flash')
+
 // 如果在 Heroku 環境則使用 process.env.PORT
 // 否則為本地環境，使用 3000 
 const PORT = process.env.PORT || 3000
@@ -38,9 +40,13 @@ app.use(methodOverride('_method'))
 // 呼叫 Passport 函式並傳入 app，這條要寫在路由之前
 usePassport(app)
 
+app.use(flash())
+
 app.use((req, res, next) => {
     res.locals.isAuthenticated = req.isAuthenticated()
     res.locals.user = req.user
+    res.locals.success_msg = req.flash('success_msg')
+    res.locals.warning_msg = req.flash('warning_msg')
     next()
 })
 
