@@ -9,7 +9,7 @@ router.get('/facebook', passport.authenticate('facebook', {
 
 router.get('/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/',
-    failureRedirect: 'users/login'
+    failureRedirect: '/users/login'
 }))
 
 module.exports = router
