@@ -16,9 +16,13 @@ const session = require('express-session')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
 
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config()
+}
+
 // 如果在 Heroku 環境則使用 process.env.PORT
 // 否則為本地環境，使用 3000 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT
 
 
 //設定樣板引擎
@@ -26,7 +30,7 @@ app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
 app.set('view engine', 'hbs')
 
 app.use(session({
-    secret: 'ThisIsMySecret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true
 }))
